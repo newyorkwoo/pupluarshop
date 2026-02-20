@@ -9,15 +9,21 @@ export const useProductStore = defineStore('product', () => {
   const banners = ref([])
   const loading = ref(false)
   const totalPages = ref(0)
+  const totalElements = ref(0)
   const currentPage = ref(0)
 
   async function fetchProducts(params = {}) {
     loading.value = true
     try {
       const { data } = await productApi.getProducts(params)
-      products.value = data.content || data
+      const list = data.content || (Array.isArray(data) ? data : [])
+      products.value = list.map(p => ({ ...p, imageUrl: p.imageUrl || p.images?.[0]?.imageUrl || '' }))
       totalPages.value = data.totalPages || 0
-      currentPage.value = data.number || 0
+      totalElements.value = data.totalElements || list.length
+      currentPage.value = data.page ?? data.number ?? 0
+    } catch {
+      products.value = []
+      totalPages.value = 0
     } finally {
       loading.value = false
     }
@@ -29,27 +35,43 @@ export const useProductStore = defineStore('product', () => {
       const { data } = await productApi.getProductBySlug(slug)
       product.value = data
       return data
+    } catch {
+      product.value = null
+      return null
     } finally {
       loading.value = false
     }
   }
 
   async function fetchCategories() {
-    const { data } = await productApi.getCategories()
-    categories.value = data
+    try {
+      const { data } = await productApi.getCategories()
+      categories.value = data
+    } catch {
+      categories.value = []
+    }
   }
 
   async function fetchBanners() {
-    const { data } = await productApi.getBanners()
-    banners.value = data
+    try {
+      const { data } = await productApi.getBanners()
+      banners.value = data
+    } catch {
+      banners.value = []
+    }
   }
 
   async function searchProducts(query, params = {}) {
     loading.value = true
     try {
       const { data } = await productApi.searchProducts(query, params)
-      products.value = data.content || data
+      const list = data.content || (Array.isArray(data) ? data : [])
+      products.value = list.map(p => ({ ...p, imageUrl: p.imageUrl || p.images?.[0]?.imageUrl || '' }))
       totalPages.value = data.totalPages || 0
+      totalElements.value = data.totalElements || list.length
+    } catch {
+      products.value = []
+      totalPages.value = 0
     } finally {
       loading.value = false
     }
@@ -62,6 +84,7 @@ export const useProductStore = defineStore('product', () => {
     banners,
     loading,
     totalPages,
+    totalElements,
     currentPage,
     fetchProducts,
     fetchProductBySlug,

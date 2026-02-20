@@ -1,0 +1,18 @@
+package com.popularshop.repository;
+
+import com.popularshop.entity.CartItem;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface CartItemRepository extends JpaRepository<CartItem, Long> {
+    List<CartItem> findByUserId(Long userId);
+
+    Optional<CartItem> findByUserIdAndProductIdAndSize(Long userId, Long productId, String size);
+
+    void deleteByUserId(Long userId);
+
+    void deleteByIdAndUserId(Long id, Long userId);
+}

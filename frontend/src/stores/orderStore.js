@@ -7,11 +7,15 @@ export const useOrderStore = defineStore('order', () => {
   const currentOrder = ref(null)
   const loading = ref(false)
 
+  const totalPages = ref(1)
+
   async function fetchOrders(params = {}) {
     loading.value = true
     try {
       const { data } = await orderApi.getOrders(params)
       orders.value = data.content || data
+      totalPages.value = data.totalPages || 1
+      return data
     } finally {
       loading.value = false
     }
@@ -45,6 +49,7 @@ export const useOrderStore = defineStore('order', () => {
     orders,
     currentOrder,
     loading,
+    totalPages,
     fetchOrders,
     fetchOrderById,
     createOrder,

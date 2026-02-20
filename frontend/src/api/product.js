@@ -6,7 +6,7 @@ export const productApi = {
   },
 
   getProductBySlug(slug) {
-    return api.get(`/products/${slug}`)
+    return api.get(`/products/slug/${slug}`)
   },
 
   searchProducts(query, params) {

@@ -63,9 +63,9 @@ function statusClass (s) { return ORDER_STATUS[s]?.color || 'bg-gray-100 text-gr
 async function fetchOrders () {
   loading.value = true
   try {
-    const data = await orderStore.fetchOrders({ page: page.value - 1 })
-    orders.value = data.content || []
-    totalPages.value = data.totalPages || 1
+    await orderStore.fetchOrders({ page: page.value - 1 })
+    orders.value = orderStore.orders
+    totalPages.value = orderStore.totalPages
   } finally { loading.value = false }
 }
 

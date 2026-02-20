@@ -11,8 +11,12 @@
 </template>
 
 <script setup>
+import { ref, provide } from 'vue'
 import AnnouncementBar from '@/components/layout/AnnouncementBar.vue'
 import Navbar from '@/components/layout/Navbar.vue'
 import Footer from '@/components/layout/Footer.vue'
 import CartDrawer from '@/components/cart/CartDrawer.vue'
+
+const cartDrawerOpen = ref(false)
+provide('cartDrawerOpen', cartDrawerOpen)
 </script>

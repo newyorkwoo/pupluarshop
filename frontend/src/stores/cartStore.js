@@ -25,16 +25,16 @@ export const useCartStore = defineStore('cart', () => {
     loading.value = true
     try {
       const { data } = await cartApi.getCart()
-      items.value = data.items || []
+      items.value = data || []
       saveToLocal()
     } finally {
       loading.value = false
     }
   }
 
-  async function addItem(product, quantity = 1) {
+  async function addItem(product, quantity = 1, size = null) {
     const authStore = useAuthStore()
-    const existing = items.value.find((i) => i.productId === product.id)
+    const existing = items.value.find((i) => i.productId === product.id && i.size === size)
 
     if (existing) {
       existing.quantity += quantity
@@ -45,13 +45,14 @@ export const useCartStore = defineStore('cart', () => {
         price: product.salePrice || product.price,
         image: product.imageUrl,
         slug: product.slug,
+        size,
         quantity,
       })
     }
     saveToLocal()
 
     if (authStore.isAuthenticated) {
-      await cartApi.addItem(product.id, quantity)
+      await cartApi.addItem(product.id, quantity, size)
     }
   }
 

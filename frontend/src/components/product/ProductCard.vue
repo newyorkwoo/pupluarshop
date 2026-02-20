@@ -1,7 +1,7 @@
 <template>
   <router-link :to="`/products/${product.slug}`" class="product-card block">
     <div class="relative overflow-hidden bg-brand-cream aspect-[3/4]">
-      <img :src="product.imageUrl || '/placeholder.jpg'" :alt="product.name"
+      <img :src="product.imageUrl || product.images?.[0]?.imageUrl || '/placeholder.jpg'" :alt="product.name"
         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
       <button @click.prevent="wishlistStore.toggle(product)"
         class="absolute top-3 right-3 p-2 bg-white/80 rounded-full hover:bg-white transition-colors">

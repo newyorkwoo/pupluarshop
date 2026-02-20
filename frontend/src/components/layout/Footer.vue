@@ -6,7 +6,7 @@
         <h3 class="section-title text-white mb-4">訂閱電子報</h3>
         <p class="text-sm text-gray-400 mb-6">搶先獲得新品上架、獨家優惠與時尚靈感</p>
         <form @submit.prevent class="flex max-w-md mx-auto">
-          <input type="email" placeholder="輸入您的 Email" class="flex-1 px-4 py-3 bg-transparent border border-gray-700 text-white text-sm focus:border-brand-gold focus:outline-none" />
+          <input id="newsletter-email" name="newsletter-email" type="email" placeholder="輸入您的 Email" class="flex-1 px-4 py-3 bg-transparent border border-gray-700 text-white text-sm focus:border-brand-gold focus:outline-none" />
           <button type="submit" class="px-6 py-3 bg-white text-brand-black text-xs uppercase tracking-widest hover:bg-brand-gold hover:text-white transition-all">
             訂閱
           </button>

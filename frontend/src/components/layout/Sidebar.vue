@@ -20,15 +20,15 @@
       <div class="mb-6">
         <h4 class="text-xs font-semibold uppercase tracking-wider mb-3">價格範圍</h4>
         <div class="flex gap-2">
-          <input v-model.number="filters.minPrice" type="number" placeholder="最低" class="input-field text-xs w-1/2" />
-          <input v-model.number="filters.maxPrice" type="number" placeholder="最高" class="input-field text-xs w-1/2" />
+          <input id="filter-min-price" name="filter-min-price" v-model.number="filters.minPrice" type="number" placeholder="最低" class="input-field text-xs w-1/2" />
+          <input id="filter-max-price" name="filter-max-price" v-model.number="filters.maxPrice" type="number" placeholder="最高" class="input-field text-xs w-1/2" />
         </div>
       </div>
 
       <!-- Sort -->
       <div class="mb-6">
         <h4 class="text-xs font-semibold uppercase tracking-wider mb-3">排序</h4>
-        <select v-model="filters.sort" class="input-field text-xs">
+        <select id="filter-sort" name="filter-sort" v-model="filters.sort" class="input-field text-xs">
           <option value="">預設</option>
           <option value="price_asc">價格：低到高</option>
           <option value="price_desc">價格：高到低</option>

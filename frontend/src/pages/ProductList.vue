@@ -5,11 +5,8 @@
     <div class="flex flex-col lg:flex-row gap-8 mt-6">
       <!-- Sidebar Filters -->
       <aside class="w-full lg:w-64 flex-shrink-0">
-        <Sidebar :categories="categories" :selectedCategory="selectedCategory"
-          :priceRange="priceRange" :sortBy="sortBy"
-          @update:category="selectedCategory = $event"
-          @update:priceRange="priceRange = $event"
-          @update:sortBy="sortBy = $event" />
+        <Sidebar :categories="categories"
+          @apply="applyFilters" />
       </aside>
 
       <!-- Product List -->
@@ -51,7 +48,7 @@ const router = useRouter()
 const productStore = useProductStore()
 
 const loading = ref(false)
-const selectedCategory = ref(route.params.category || '')
+const selectedCategory = ref(route.params.slug || '')
 const priceRange = ref([0, 200000])
 const sortBy = ref('newest')
 const currentPage = ref(1)
@@ -71,6 +68,14 @@ const breadcrumb = computed(() => {
   return items
 })
 
+function applyFilters (filters) {
+  if (filters.minPrice != null) priceRange.value[0] = filters.minPrice
+  if (filters.maxPrice != null) priceRange.value[1] = filters.maxPrice
+  if (filters.sort) sortBy.value = filters.sort
+  currentPage.value = 1
+  fetchProducts()
+}
+
 async function fetchProducts () {
   loading.value = true
   try {
@@ -89,7 +94,7 @@ async function fetchProducts () {
 
 watch([selectedCategory, priceRange, sortBy], () => { currentPage.value = 1; fetchProducts() })
 watch(currentPage, () => fetchProducts())
-watch(() => route.params.category, v => { selectedCategory.value = v || '' })
+watch(() => route.params.slug, v => { selectedCategory.value = v || '' })
 
 onMounted(async () => {
   await productStore.fetchCategories()

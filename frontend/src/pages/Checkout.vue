@@ -33,7 +33,7 @@
       <div>
         <div class="bg-brand-cream p-6 sticky top-24">
           <h2 class="text-sm uppercase tracking-[0.15em] font-semibold mb-4">訂單摘要</h2>
-          <OrderReview :items="cartStore.items" />
+        <OrderReview />
           <div class="border-t border-brand-gray/20 mt-4 pt-4 space-y-2 text-sm">
             <div class="flex justify-between"><span>小計</span><span>{{ formatCurrency(cartStore.totalAmount) }}</span></div>
             <div class="flex justify-between"><span>運費</span><span>{{ shipping === 0 ? '免運費' : formatCurrency(shipping) }}</span></div>
@@ -66,7 +66,7 @@ const router = useRouter()
 const cartStore = useCartStore()
 const orderStore = useOrderStore()
 
-const address = ref({ name: '', phone: '', email: '', city: '', district: '', zipCode: '', addressLine: '' })
+const address = ref({ name: '', phone: '', city: '', district: '', zipCode: '', addressLine: '' })
 const paymentMethod = ref('credit_card')
 const couponCode = ref('')
 const couponLoading = ref(false)
@@ -74,7 +74,7 @@ const couponError = ref('')
 const discount = ref(0)
 const placing = ref(false)
 
-const shipping = computed(() => cartStore.totalAmount >= 5000 ? 0 : 150)
+const shipping = computed(() => cartStore.totalAmount >= 3000 ? 0 : 120)
 const total = computed(() => Math.max(0, cartStore.totalAmount + shipping.value - discount.value))
 
 async function applyCoupon () {
@@ -93,10 +93,14 @@ async function placeOrder () {
   placing.value = true
   try {
     const order = await orderStore.createOrder({
-      address: address.value,
+      shippingName: address.value.name,
+      shippingPhone: address.value.phone,
+      shippingCity: address.value.city,
+      shippingDistrict: address.value.district,
+      shippingZipCode: address.value.zipCode,
+      shippingAddress: address.value.addressLine,
       paymentMethod: paymentMethod.value,
       couponCode: couponCode.value || undefined,
-      items: cartStore.items.map(i => ({ productId: i.productId, size: i.size, quantity: i.quantity })),
     })
     cartStore.clearCart()
     router.push({ name: 'OrderConfirmation', params: { id: order.id } })

@@ -38,7 +38,7 @@ const processQueue = (error, token = null) => {
 }
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => response.data,
   async (error) => {
     const originalRequest = error.config
     const authStore = useAuthStore()
@@ -59,13 +59,14 @@ api.interceptors.response.use(
       isRefreshing = true
 
       try {
-        const { data } = await axios.post(
+        const res = await axios.post(
           `${import.meta.env.VITE_API_BASE_URL}/auth/refresh`,
           { refreshToken: authStore.refreshToken }
         )
-        authStore.setTokens(data.accessToken, data.refreshToken)
-        processQueue(null, data.accessToken)
-        originalRequest.headers.Authorization = `Bearer ${data.accessToken}`
+        const tokenData = res.data.data || res.data
+        authStore.setTokens(tokenData.accessToken, tokenData.refreshToken)
+        processQueue(null, tokenData.accessToken)
+        originalRequest.headers.Authorization = `Bearer ${tokenData.accessToken}`
         return api(originalRequest)
       } catch (refreshError) {
         processQueue(refreshError, null)

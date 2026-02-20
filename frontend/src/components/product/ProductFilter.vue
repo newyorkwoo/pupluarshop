@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-4">
-    <select v-model="sort" @change="$emit('change', { sort })" class="input-field text-xs">
+    <select id="product-sort" name="product-sort" v-model="sort" @change="$emit('update:sortBy', sort)" class="input-field text-xs">
       <option value="">排序方式</option>
       <option value="price_asc">價格：低到高</option>
       <option value="price_desc">價格：高到低</option>
@@ -11,8 +11,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
-defineEmits(['change'])
-const sort = ref('')
+const props = defineProps({ sortBy: { type: String, default: '' } })
+defineEmits(['update:sortBy'])
+const sort = ref(props.sortBy)
+watch(() => props.sortBy, (v) => { sort.value = v })
 </script>

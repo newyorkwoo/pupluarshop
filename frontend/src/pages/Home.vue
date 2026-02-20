@@ -74,22 +74,19 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import ProductGrid from '@/components/product/ProductGrid.vue'
+import { useProductStore } from '@/stores/productStore'
 
-const categories = ref([
-  { name: 'Women', slug: 'women' },
-  { name: 'Men', slug: 'men' },
-  { name: 'Kids', slug: 'kids' },
-  { name: 'Life', slug: 'life' },
-])
+const productStore = useProductStore()
 
-const featuredProducts = ref([
-  { id: 1, name: 'Cashmere Oversized Coat', brand: 'BOTTEGA VENETA', slug: 'cashmere-oversized-coat', price: 89000, salePrice: null, imageUrl: '' },
-  { id: 2, name: 'Leather Crossbody Bag', brand: 'SAINT LAURENT', slug: 'leather-crossbody-bag', price: 52000, salePrice: 41600, imageUrl: '' },
-  { id: 3, name: 'Logo Silk Scarf', brand: 'GUCCI', slug: 'logo-silk-scarf', price: 18500, salePrice: null, imageUrl: '' },
-  { id: 4, name: 'Suede Platform Pumps', brand: 'CHRISTIAN LOUBOUTIN', slug: 'suede-platform-pumps', price: 32000, salePrice: null, imageUrl: '' },
-  { id: 5, name: 'Wool Tailored Blazer', brand: 'BALENCIAGA', slug: 'wool-tailored-blazer', price: 67500, salePrice: 54000, imageUrl: '' },
-  { id: 6, name: 'Crystal Drop Earrings', brand: 'GIVENCHY', slug: 'crystal-drop-earrings', price: 23000, salePrice: null, imageUrl: '' },
-  { id: 7, name: 'Canvas Tote Bag', brand: 'BURBERRY', slug: 'canvas-tote-bag', price: 38000, salePrice: null, imageUrl: '' },
-  { id: 8, name: 'Cashmere Knit Sweater', brand: 'ACNE STUDIOS', slug: 'cashmere-knit-sweater', price: 29500, salePrice: 22125, imageUrl: '' },
-])
+const categories = ref([])
+const featuredProducts = ref([])
+
+onMounted(async () => {
+  await productStore.fetchCategories()
+  // Use only parent categories for display
+  categories.value = productStore.categories.filter(c => !c.parentId).slice(0, 4)
+
+  await productStore.fetchProducts({ page: 0, size: 8, sort: 'newest' })
+  featuredProducts.value = productStore.products
+})
 </script>

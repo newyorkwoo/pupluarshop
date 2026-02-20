@@ -4,7 +4,7 @@
     <LoadingSpinner v-if="loading" />
     <template v-else-if="product">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <ProductGallery :images="product.images || []" />
+        <ProductGallery :images="productImages" />
         <div>
           <p class="text-xs uppercase tracking-[0.2em] text-brand-gray mb-1">{{ product.brand }}</p>
           <h1 class="text-2xl font-light mb-4">{{ product.name }}</h1>
@@ -76,6 +76,13 @@ const relatedProducts = ref([])
 
 const isWished = computed(() => product.value && wishlistStore.isInWishlist(product.value.id))
 
+const productImages = computed(() => {
+  if (!product.value?.images?.length) return ['/placeholder.jpg']
+  return product.value.images
+    .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0))
+    .map(img => typeof img === 'string' ? img : img.imageUrl)
+})
+
 const breadcrumb = computed(() => {
   if (!product.value) return [{ label: '首頁', to: '/' }]
   return [
@@ -108,7 +115,7 @@ async function addToCart () {
   if (product.value.sizes?.length && !selectedSize.value) return
   adding.value = true
   try {
-    await cartStore.addItem({ productId: product.value.id, size: selectedSize.value, quantity: 1 })
+    await cartStore.addItem(product.value, 1)
   } finally { adding.value = false }
 }
 

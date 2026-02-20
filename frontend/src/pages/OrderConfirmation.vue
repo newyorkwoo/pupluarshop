@@ -27,7 +27,7 @@
     </div>
 
     <div class="flex justify-center gap-4">
-      <router-link to="/account/orders" class="btn-secondary">查看訂單</router-link>
+      <router-link to="/orders" class="btn-secondary">查看訂單</router-link>
       <router-link to="/products" class="btn-primary">繼續購物</router-link>
     </div>
   </div>

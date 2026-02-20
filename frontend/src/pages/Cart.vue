@@ -13,10 +13,12 @@
 
     <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-10">
       <div class="lg:col-span-2 space-y-4">
-        <CartItem v-for="item in cartStore.items" :key="item.id" :item="item" />
+        <CartItem v-for="item in cartStore.items" :key="item.id || item.productId" :item="item"
+          @update="(productId, qty) => cartStore.updateQuantity(productId, qty)"
+          @remove="(productId) => cartStore.removeItem(productId)" />
       </div>
       <div>
-        <CartSummary :subtotal="cartStore.totalAmount" />
+        <CartSummary />
         <router-link to="/checkout" class="btn-primary w-full text-center block mt-4">前往結帳</router-link>
         <router-link to="/products" class="block text-center text-sm text-brand-gray hover:text-brand-black mt-4 underline">繼續購物</router-link>
       </div>

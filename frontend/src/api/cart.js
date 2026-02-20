@@ -5,16 +5,16 @@ export const cartApi = {
     return api.get('/cart')
   },
 
-  addItem(productId, quantity = 1) {
-    return api.post('/cart/items', { productId, quantity })
+  addItem(productId, quantity = 1, size = null) {
+    return api.post('/cart', { productId, quantity, size })
   },
 
   updateItem(itemId, quantity) {
-    return api.put(`/cart/items/${itemId}`, { quantity })
+    return api.put(`/cart/${itemId}?quantity=${quantity}`)
   },
 
   removeItem(itemId) {
-    return api.delete(`/cart/items/${itemId}`)
+    return api.delete(`/cart/${itemId}`)
   },
 
   clearCart() {

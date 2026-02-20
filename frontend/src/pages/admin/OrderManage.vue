@@ -58,7 +58,7 @@
 
 <script setup>
 import { ref, watch, onMounted } from 'vue'
-import { getOrders } from '@/api/admin'
+import { getOrders, updateOrderStatus } from '@/api/admin'
 import { formatCurrency } from '@/utils/formatters'
 import DataTable from '@/components/admin/DataTable.vue'
 import LoadingSpinner from '@/components/ui/LoadingSpinner.vue'
@@ -92,7 +92,15 @@ async function loadOrders () {
 }
 
 function viewOrder (row) { selectedOrder.value = row }
-function updateStatus (row, status) { row.status = status }
+async function updateStatus (row, status) {
+  try {
+    await updateOrderStatus(row.id, status)
+    row.status = status
+  } catch (e) {
+    alert('狀態更新失敗')
+    await loadOrders()
+  }
+}
 
 watch([page, search, filterStatus], () => loadOrders())
 onMounted(() => loadOrders())

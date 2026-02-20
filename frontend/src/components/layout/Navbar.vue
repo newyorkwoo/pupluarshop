@@ -92,7 +92,7 @@
 </template>
 
 <script setup>
-import { ref, nextTick, provide } from 'vue'
+import { ref, nextTick, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import { useCartStore } from '@/stores/cartStore'
@@ -105,9 +105,7 @@ const searchOpen = ref(false)
 const searchQuery = ref('')
 const searchInput = ref(null)
 const mobileMenuOpen = ref(false)
-const cartDrawerOpen = ref(false)
-
-provide('cartDrawerOpen', cartDrawerOpen)
+const cartDrawerOpen = inject('cartDrawerOpen')
 
 async function toggleSearch() {
   searchOpen.value = !searchOpen.value
