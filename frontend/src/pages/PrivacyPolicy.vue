@@ -1,0 +1,44 @@
+<template>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 prose prose-sm">
+    <h1 class="text-2xl font-light tracking-wider mb-8">隱私權政策</h1>
+    <p class="text-xs text-brand-gray mb-6">最後更新日期：2024 年 12 月 1 日</p>
+
+    <section class="mb-8">
+      <h2 class="text-base font-semibold mb-3">1. 資料蒐集</h2>
+      <p class="text-sm text-brand-charcoal leading-relaxed">PopularShop（以下簡稱「本公司」）在您使用本網站服務時，可能會蒐集以下個人資料：姓名、電子郵件地址、電話號碼、配送地址、付款資訊。本公司僅在提供服務所必要的範圍內蒐集您的個人資料。</p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-base font-semibold mb-3">2. 資料使用</h2>
+      <p class="text-sm text-brand-charcoal leading-relaxed">您的個人資料將用於：處理訂單與付款、配送商品、客戶服務與技術支援、寄送促銷活動通知（經您同意後）、改善網站服務品質。</p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-base font-semibold mb-3">3. 資料保護</h2>
+      <p class="text-sm text-brand-charcoal leading-relaxed">本公司採用業界標準的加密技術（SSL/TLS）保護您的個人資料在傳輸過程中的安全。所有敏感資料均經過加密存儲，並僅限授權人員存取。</p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-base font-semibold mb-3">4. Cookie 政策</h2>
+      <p class="text-sm text-brand-charcoal leading-relaxed">本網站使用 Cookie 以提供更好的使用體驗。Cookie 用於識別您的瀏覽器、記住您的偏好設定、分析網站流量。您可以在瀏覽器設定中管理或停用 Cookie。</p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-base font-semibold mb-3">5. 第三方分享</h2>
+      <p class="text-sm text-brand-charcoal leading-relaxed">除下列情況外，本公司不會將您的個人資料分享給第三方：為完成訂單交付而必須提供給物流合作夥伴、法律要求或政府機關依法要求時、經您明確同意。</p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-base font-semibold mb-3">6. 您的權利</h2>
+      <p class="text-sm text-brand-charcoal leading-relaxed">依據《個人資料保護法》，您有權：查詢或請求閱覽您的個人資料、請求製作複本、請求補充或更正、請求停止蒐集、處理或利用、請求刪除。如需行使上述權利，請聯繫 privacy@popularshop.com。</p>
+    </section>
+
+    <section>
+      <h2 class="text-base font-semibold mb-3">7. 聯繫方式</h2>
+      <p class="text-sm text-brand-charcoal leading-relaxed">如對本隱私權政策有任何疑問，請透過 privacy@popularshop.com 與我們聯繫。</p>
+    </section>
+  </div>
+</template>
+
+<script setup>
+</script>

@@ -1,0 +1,1 @@
+import{M as r,o as n,c as s,a as t}from"./index-BtfrMQy-.js";const o={},a={class:"flex items-center justify-center py-12"};function c(d,e){return n(),s("div",a,[...e[0]||(e[0]=[t("div",{class:"w-8 h-8 border-2 border-brand-black border-t-transparent rounded-full animate-spin"},null,-1)])])}const l=r(o,[["render",c]]);export{l as L};

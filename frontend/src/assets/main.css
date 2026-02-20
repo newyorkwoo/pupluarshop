@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-brand-black bg-white font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-wide;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-black text-white px-8 py-3 text-sm uppercase tracking-widest
+           hover:bg-brand-gold transition-all duration-300 font-medium;
+  }
+
+  .btn-secondary {
+    @apply border border-brand-black text-brand-black px-8 py-3 text-sm uppercase tracking-widest
+           hover:bg-brand-black hover:text-white transition-all duration-300 font-medium;
+  }
+
+  .input-field {
+    @apply w-full border border-gray-300 px-4 py-3 text-sm
+           focus:border-brand-black focus:outline-none transition-colors duration-200;
+  }
+
+  .product-card {
+    @apply cursor-pointer transition-transform duration-300 hover:scale-[1.02];
+  }
+
+  .section-title {
+    @apply text-xs sm:text-sm uppercase tracking-[0.2em] font-medium text-brand-charcoal;
+  }
+}

@@ -1,0 +1,6 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "npx tailwindcss": true
+    },
+    "java.compile.nullAnalysis.mode": "automatic"
+}
