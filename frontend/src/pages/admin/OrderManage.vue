@@ -59,7 +59,7 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import { getOrders, updateOrderStatus } from '@/api/admin'
-import { formatCurrency } from '@/utils/formatters'
+import { formatCurrency, formatDate } from '@/utils/formatters'
 import DataTable from '@/components/admin/DataTable.vue'
 import LoadingSpinner from '@/components/ui/LoadingSpinner.vue'
 import Pagination from '@/components/ui/Pagination.vue'
@@ -86,7 +86,12 @@ async function loadOrders () {
   loading.value = true
   try {
     const res = await getOrders({ page: page.value - 1, search: search.value, status: filterStatus.value })
-    orders.value = res.data?.content || []
+    orders.value = (res.data?.content || []).map(o => ({
+      ...o,
+      customerName: o.customerName || o.shippingInfo?.name || '—',
+      amount: o.amount ?? o.totalAmount,
+      createdAt: formatDate(o.createdAt),
+    }))
     totalPages.value = res.data?.totalPages || 1
   } finally { loading.value = false }
 }

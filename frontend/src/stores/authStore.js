@@ -11,7 +11,7 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = computed(() => !!token.value)
   const isAdmin = computed(() => user.value?.role === 'ADMIN')
   const fullName = computed(() =>
-    user.value ? `${user.value.firstName} ${user.value.lastName}` : ''
+    user.value ? (user.value.name || `${user.value.firstName || ''} ${user.value.lastName || ''}`.trim()) : ''
   )
 
   function setTokens(accessToken, newRefreshToken) {

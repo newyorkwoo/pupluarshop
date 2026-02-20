@@ -43,7 +43,8 @@ api.interceptors.response.use(
     const originalRequest = error.config
     const authStore = useAuthStore()
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    const status = error.response?.status
+    if ((status === 401 || status === 403) && !originalRequest._retry) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject })
@@ -76,10 +77,6 @@ api.interceptors.response.use(
       } finally {
         isRefreshing = false
       }
-    }
-
-    if (error.response?.status === 403) {
-      router.push('/')
     }
 
     return Promise.reject(error)
