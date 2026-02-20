@@ -79,7 +79,7 @@ api.interceptors.response.use(
     }
 
     if (error.response?.status === 403) {
-      router.push('/403')
+      router.push('/')
     }
 
     return Promise.reject(error)
